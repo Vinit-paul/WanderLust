@@ -1,0 +1,140 @@
+body {
+  font-family: "Plus Jakarta Sans", serif !important;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.container {
+  flex: 1;
+}
+/* NAVBAR */
+.navbar {
+  height: 5rem;
+  background-color: white;
+}
+.fa-mountain-city {
+  color: #fe424d;
+  font-size: 2rem;
+}
+.nav-link {
+  color: #222222 !important; /* impotant is used to override the default color of bootstrap */
+}
+.f-info-links a {
+  text-decoration: none;
+  color: #222222;
+}
+.f-info-links a:hover {
+  text-decoration: underline;
+}
+.f-info-links,
+.f-info-socials,
+.f-info-brand {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.f-info {
+  text-align: center;
+  height: 8rem;
+  background-color: #ebebeb;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: space-evenly;
+}
+.listing-card{
+  margin-bottom: 2rem;
+  border: none !important;
+}
+.card-img-top {
+  border-radius: 1rem !important;
+  width: 100% !important;
+  object-fit: cover !important;
+}
+.card-body {
+  padding: 0 !important;
+  position: relative;
+}
+.card-text p {
+  font-weight: 400 !important;
+}
+.card-img-overlay {
+  opacity: 0;
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.card:hover .card-img-overlay {
+  opacity: 0.4;
+}
+.new-head {
+  font-size: 2rem;
+  font-weight: 550;
+  color: #222222;
+  padding-top: 0.6cm;
+}
+.add-btn {
+  background-color: #fe424d;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.edit-btn {
+  background-color: #fe424d;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.edit-head {
+  font-size: 2rem;
+  font-weight: 550;
+  color: #222222;
+  padding-top: 0.6cm;
+}
+.show-img {
+  height: 30vh;
+}
+.show-head {
+  font-size: 2rem;
+  font-weight: 550;
+  color: #222222;
+  padding-top: 0.6cm;
+}
+.edit-btn-showpg {
+  background-color: #fe424d;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.edit-btn-showpg :hover {
+}
+.dlt-btn-showpg {
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.ind-head {
+  color: #222222;
+  padding-top: 0.6cm;
+  padding-bottom: 0.6cm;
+}

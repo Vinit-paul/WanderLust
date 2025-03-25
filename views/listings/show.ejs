@@ -1,0 +1,210 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="row">
+  <div class="col-8 offset-2">
+    <div class="card" style="width: 18rem">
+      <h4 class="card-title mt-3"><%= listing.title %></h4>
+      <br />
+    </div>
+
+    <div class="col-6 offset-2 mb-3 listing-card">
+      <img
+        src="<%= listing.image.url ? listing.image.url : 'https://via.placeholder.com/300' %>"
+        class="card-img-top"
+        alt="listing_image"
+        style="height: 20rem"
+      />
+    </div>
+
+    <div class="card-body mb-3">
+      <br />
+      <% if (listing.owner) { %> Owned by:
+      <i class="mb-3"><%= listing.owner.username %></i><br />
+      <% } else { %>
+      <i class="mb-3">Owner Not Available</i><br />
+      <% } %>
+
+      <h6 class="card-title">Description :-</h6>
+      <p class="card-text"><%= listing.description %></p>
+    </div>
+
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Cost : $<%= listing.price %></li>
+      <li class="list-group-item">City : <%= listing.location %></li>
+      <li class="list-group-item">Country : <%= listing.country %></li>
+    </ul>
+    <br />
+    <% if (currUser && currUser._id.equals(listing.owner._id)) { %>
+    <div class="card-body d-flex gap-5 align-items-center mb-4">
+      <a class="edit-btn-showpg" href="/listings/<%= listing._id %>/edit"
+        >Edit Listing</a
+      >
+      <form method="post" action="/listings/<%= listing._id %>?_method=DELETE">
+        <button class="dlt-btn-showpg">Delete</button>
+      </form>
+    </div>
+    <% } %>
+  </div>
+
+  <div class="col-8 offset-2 mb-3">
+    <hr />
+    <% if(currUser) { %>
+    <h4>Leave a Review</h4>
+    <br />
+    <form
+      action="/listings/<%= listing._id %>/reviews"
+      method="post"
+      novalidate
+      class="needs-validation"
+    >
+      <!-- <div>
+        <label for="rating" class="form-label">Rating</label>
+        <input
+          type="range"
+          name="review[rating]"
+          min="1"
+          max="5"
+          step="1"
+          value="3"
+          required
+        />
+      </div> -->
+      <div class="mb-3 mt-3">
+        <label for="rating" class="form-label">Rating</label>
+        <fieldset class="starability-grow">
+          <input
+            type="radio"
+            id="no-rate"
+            class="input-no-rate"
+            name="review[rating]"
+            value="1"
+            checked
+            aria-label="No rating."
+          />
+          <input
+            type="radio"
+            id="first-rate1"
+            name="review[rating]"
+            value="1"
+          />
+          <label for="first-rate1" title="Terrible">1 star</label>
+          <input
+            type="radio"
+            id="first-rate2"
+            name="review[rating]"
+            value="2"
+          />
+          <label for="first-rate2" title="Not good">2 stars</label>
+          <input
+            type="radio"
+            id="first-rate3"
+            name="review[rating]"
+            value="3"
+          />
+          <label for="first-rate3" title="Average">3 stars</label>
+          <input
+            type="radio"
+            id="first-rate4"
+            name="review[rating]"
+            value="4"
+          />
+          <label for="first-rate4" title="Very good">4 stars</label>
+          <input
+            type="radio"
+            id="first-rate5"
+            name="review[rating]"
+            value="5"
+          />
+          <label for="first-rate5" title="Amazing">5 stars</label>
+        </fieldset>
+      </div>
+
+      <div>
+        <label for="comment" class="form-label">Review</label>
+        <textarea
+          id="comment"
+          name="review[comment]"
+          class="form-control"
+          cols="30"
+          rows="5"
+          required
+        ></textarea>
+
+        <div class="invalid-feedback">
+          Please submit some comments for review
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary mt-3 mb-3 outline-dark">
+        Submit
+      </button>
+    </form>
+    <hr />
+    <% } %>
+
+    <hr />
+    <h4>Reviews</h4>
+    <!-- <ul class="list-group">
+      <% (listing.reviews || []).forEach(review => { %>
+      <li class="list-group-item">
+        <div class="d-flex justify-content-between">
+          <div>
+            <span class="fw-bold">Rating: </span>
+            <span><%= review.rating %></span>
+          </div>
+          <div>
+            <span class="fw-bold">Review: </span>
+            <span><%= review.comment %></span>
+          </div>
+        </div>
+      </li>
+      <% }) %>
+    </ul> -->
+    <!-- <p><b>All Reviews</b></p>
+    <div class="row">
+      <% (listing.reviews || []).forEach(review => { %>
+      <div class="col-6 ms-3 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Mr. Vinit</h5>
+            <p class="card-text">Rating: <%= review.rating %> stars</p>
+            <p class="card-text">Review: <%= review.comment %></p>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div> -->
+
+    <p><b>All Reviews</b></p>
+
+    <div class="container">
+      <% listing.reviews.forEach((review, index) => { %> <% if (index % 2 === 0)
+      { %>
+      <div class="row">
+        <% } %>
+        <div class="col-md-6 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">@<%= review.author.username %></h5>
+              <p
+                class="starability-result card-text"
+                data-rating="<%= review.rating %>"
+              ></p>
+
+              <p class="card-text">Review: <%= review.comment %></p>
+              <form
+                class="mb-3"
+                method="post"
+                action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
+              >
+                <button class="btn btn-sm btn-dark">Delete</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <% if (index % 2 === 1 || index === listing.reviews.length - 1) { %>
+      </div>
+      <% } %> <% }) %>
+    </div>
+  </div>
+</div>
